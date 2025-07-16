@@ -1,0 +1,1617 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Dokumentasi E-KIN",
+        "description": "Dokumentasi semua endpoint API E-KIN",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "Localhost"
+        },
+        {
+            "url": ""
+        }
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login untuk mendapatkan token akses",
+                "operationId": "222b2625838e3c57e017987f73598fda",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "admin"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "Bearer eyJ..."
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "admin"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout dan hapus token",
+                "operationId": "ad65cbbd4e9f201619eae184a5961a98",
+                "responses": {
+                    "200": {
+                        "description": "Logout berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/indikator": {
+            "get": {
+                "tags": [
+                    "Indikator"
+                ],
+                "summary": "List semua indikator",
+                "operationId": "2951c9761d7ae2c08077e4417c63768b",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Indikator"
+                ],
+                "summary": "Tambah indikator",
+                "operationId": "8ffb3ade876cc0c7d509b35ff1d8bdfc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "instansi_id",
+                                    "uraian"
+                                ],
+                                "properties": {
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "uraian": {
+                                        "type": "string",
+                                        "example": "Meningkatkan pelayanan publik"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil ditambahkan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/indikator/{id}": {
+            "get": {
+                "tags": [
+                    "Indikator"
+                ],
+                "summary": "Ambil detail indikator",
+                "operationId": "ba6bc0417a803502ce79eae072de32de",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Indikator"
+                ],
+                "summary": "Update indikator",
+                "operationId": "755500d153b6e17d8298242d6c333235",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "instansi_id",
+                                    "uraian"
+                                ],
+                                "properties": {
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "uraian": {
+                                        "type": "string",
+                                        "example": "Menurunkan angka kemiskinan"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update berhasil"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Indikator"
+                ],
+                "summary": "Hapus indikator",
+                "operationId": "82810024a35708e7556cc0d2a3b83700",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            }
+        },
+        "/api/instansi": {
+            "get": {
+                "tags": [
+                    "Instansi"
+                ],
+                "summary": "List semua instansi",
+                "operationId": "1dc8a12e31e31ed973b969e91359671e",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Instansi"
+                ],
+                "summary": "Tambah instansi",
+                "operationId": "86ea14c2716d73410631d93fadc31a5c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "nama"
+                                ],
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Dinas Pendidikan"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil ditambahkan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validasi gagal"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "nama": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Nama Instansi Wajib diisi"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/instansi/{id}": {
+            "get": {
+                "tags": [
+                    "Instansi"
+                ],
+                "summary": "Detail instansi",
+                "operationId": "d4d5bb3a0977a11bdc784934e67f9623",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Instansi"
+                ],
+                "summary": "Update instansi",
+                "operationId": "92fca24f02e8da0d53343e96d88dc04b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InstansiRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update berhasil"
+                    },
+                    "422": {
+                        "description": "Validasi gagal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "nama": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The nama field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Instansi"
+                ],
+                "summary": "Hapus instansi",
+                "operationId": "400116b1e3e7fa0174c893b02a3b3363",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/jabatan": {
+            "get": {
+                "tags": [
+                    "Jabatan"
+                ],
+                "summary": "List semua jabatan",
+                "operationId": "8659bc207bed442e01d4efcca7c432cf",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Jabatan"
+                ],
+                "summary": "Tambah jabatan",
+                "operationId": "88084c23b0ec31aff41701b439abcb3d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama",
+                                    "kode"
+                                ],
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Kepala Dinas"
+                                    },
+                                    "kode": {
+                                        "type": "string",
+                                        "example": "KD01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil ditambahkan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/jabatan/{id}": {
+            "get": {
+                "tags": [
+                    "Jabatan"
+                ],
+                "summary": "Ambil detail jabatan",
+                "operationId": "049dd7e67fc2ebda9257cc353fce6c80",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Jabatan"
+                ],
+                "summary": "Update jabatan",
+                "operationId": "0ccf382c26419eb87dc2360cf9ca5ee3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama",
+                                    "kode"
+                                ],
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Sekretaris"
+                                    },
+                                    "kode": {
+                                        "type": "string",
+                                        "example": "SK01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update berhasil"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Jabatan"
+                ],
+                "summary": "Hapus jabatan",
+                "operationId": "d488ec71ba65a1a161af49ced65b6be4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            }
+        },
+        "/api/pangkat": {
+            "get": {
+                "tags": [
+                    "Pangkat"
+                ],
+                "summary": "List semua pangkat",
+                "operationId": "66598d5e9e4989d36df5b65222d10d39",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pangkat"
+                ],
+                "summary": "Tambah pangkat",
+                "operationId": "67793c0bfa501eb0469f119b019f0444",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama",
+                                    "golongan"
+                                ],
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Penata Muda"
+                                    },
+                                    "golongan": {
+                                        "type": "string",
+                                        "example": "III/a"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil ditambahkan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/pangkat/{id}": {
+            "get": {
+                "tags": [
+                    "Pangkat"
+                ],
+                "summary": "Ambil detail pangkat",
+                "operationId": "fadf145fd39bec2cf22aa2e3ab0820f3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Pangkat"
+                ],
+                "summary": "Update pangkat",
+                "operationId": "ab25a8e5b959aa191414f1c0ad2795fb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama",
+                                    "golongan"
+                                ],
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Pembina"
+                                    },
+                                    "golongan": {
+                                        "type": "string",
+                                        "example": "IV/a"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update berhasil"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pangkat"
+                ],
+                "summary": "Hapus pangkat",
+                "operationId": "91f8f5885d50db7641c99d005084476f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            }
+        },
+        "/api/rhk-pejabat": {
+            "get": {
+                "tags": [
+                    "RHK Pejabat"
+                ],
+                "summary": "List semua RHK pejabat",
+                "operationId": "86875103a6f760c14491df04d6766835",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "RHK Pejabat"
+                ],
+                "summary": "Tambah RHK pejabat",
+                "operationId": "7f2cbc86062301c5c071e603ac85e6d2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "jabatan_id",
+                                    "instansi_id",
+                                    "uraian"
+                                ],
+                                "properties": {
+                                    "jabatan_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "uraian": {
+                                        "type": "string",
+                                        "example": "Mengawasi pelaksanaan kegiatan instansi"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil ditambahkan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/rhk-pejabat/{id}": {
+            "get": {
+                "tags": [
+                    "RHK Pejabat"
+                ],
+                "summary": "Ambil detail RHK pejabat",
+                "operationId": "c3b7b54a9ec8792f634bf75dd0cef5eb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "RHK Pejabat"
+                ],
+                "summary": "Update RHK pejabat",
+                "operationId": "4db340a61e75f59f5b2425112f455f3b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "jabatan_id",
+                                    "instansi_id",
+                                    "uraian"
+                                ],
+                                "properties": {
+                                    "jabatan_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "uraian": {
+                                        "type": "string",
+                                        "example": "Mengarahkan kebijakan sektor pendidikan"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update berhasil"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "RHK Pejabat"
+                ],
+                "summary": "Hapus RHK pejabat",
+                "operationId": "3437ed38ee5a2866bfba1ac0864ce42d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            }
+        },
+        "/api/rhk-staff": {
+            "get": {
+                "tags": [
+                    "RHK Staff"
+                ],
+                "summary": "List semua RHK staff",
+                "operationId": "5511ac06645f0dbe285c4de18a696ae8",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "RHK Staff"
+                ],
+                "summary": "Tambah RHK staff",
+                "operationId": "99066bcf02ecbc3a35b79ca7447d7e08",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "jabatan_id",
+                                    "indikator_id",
+                                    "instansi_id",
+                                    "uraian",
+                                    "nilai",
+                                    "tahun"
+                                ],
+                                "properties": {
+                                    "jabatan_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "indikator_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "uraian": {
+                                        "type": "string",
+                                        "example": "Menyusun laporan kegiatan harian"
+                                    },
+                                    "nilai": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 85.5
+                                    },
+                                    "tahun": {
+                                        "type": "integer",
+                                        "example": 2025
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil ditambahkan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/rhk-staff/{id}": {
+            "get": {
+                "tags": [
+                    "RHK Staff"
+                ],
+                "summary": "Ambil detail RHK staff",
+                "operationId": "354f7c61b5cb3613094d47119085cc87",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "RHK Staff"
+                ],
+                "summary": "Update RHK staff",
+                "operationId": "a795fde195095f2301f694733d8b36ad",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "jabatan_id",
+                                    "indikator_id",
+                                    "instansi_id",
+                                    "uraian",
+                                    "nilai",
+                                    "tahun"
+                                ],
+                                "properties": {
+                                    "jabatan_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "indikator_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "uraian": {
+                                        "type": "string",
+                                        "example": "Rekap data bulanan"
+                                    },
+                                    "nilai": {
+                                        "type": "number",
+                                        "example": 90.25
+                                    },
+                                    "tahun": {
+                                        "type": "integer",
+                                        "example": 2025
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil diupdate"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "RHK Staff"
+                ],
+                "summary": "Hapus RHK staff",
+                "operationId": "7b409bc6588025c3551f295cd691b422",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                }
+            }
+        },
+        "/api/uraian-tugas": {
+            "get": {
+                "tags": [
+                    "Uraian Tugas"
+                ],
+                "summary": "List semua uraian tugas",
+                "operationId": "e64752d0b3b1f423fdd51029debcb847",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Uraian Tugas"
+                ],
+                "summary": "Tambah uraian tugas",
+                "operationId": "a3cb6a8fece84fac81d6fae932fb6132",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "indikator_id",
+                                    "rhk_staff_id",
+                                    "instansi_id",
+                                    "uraian"
+                                ],
+                                "properties": {
+                                    "indikator_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "rhk_staff_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "uraian": {
+                                        "type": "string",
+                                        "example": "Menginput data absensi harian"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil ditambahkan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/uraian-tugas/{id}": {
+            "get": {
+                "tags": [
+                    "Uraian Tugas"
+                ],
+                "summary": "Ambil detail uraian tugas",
+                "operationId": "2ce312b77f05f9abe7c122ef00badff0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Uraian Tugas"
+                ],
+                "summary": "Update uraian tugas",
+                "operationId": "7906378937c3fcb937cc93676376cca4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "indikator_id",
+                                    "rhk_staff_id",
+                                    "instansi_id",
+                                    "uraian"
+                                ],
+                                "properties": {
+                                    "indikator_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "rhk_staff_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "uraian": {
+                                        "type": "string",
+                                        "example": "Membuat laporan bulanan"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil diupdate"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Uraian Tugas"
+                ],
+                "summary": "Hapus uraian tugas",
+                "operationId": "4f06dde671099d6fd426607bf44446fb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "List semua user",
+                "operationId": "43f6e315d3f1276aaffe67ee56dcef21",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Tambah user",
+                "operationId": "70875b6c5d91d20d631a786ccf0369c7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama",
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Ahmad Syah"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "ahmad"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "ahmad@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret123"
+                                    },
+                                    "jabatan_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "pangkat_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_atasan": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nip": {
+                                        "type": "string",
+                                        "example": "197901012003121002"
+                                    },
+                                    "nik": {
+                                        "type": "string",
+                                        "example": "3674020101900001"
+                                    },
+                                    "jenis_pegawai": {
+                                        "type": "string",
+                                        "example": "pns"
+                                    },
+                                    "no_wa": {
+                                        "type": "string",
+                                        "example": "081234567890"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil ditambahkan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Ambil detail user",
+                "operationId": "8cb158592063fa035654740f8d3703b6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user",
+                "operationId": "3a22fe4ec38d54ec014f5fc6796e594a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Ahmad Syah"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "ahmad"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "ahmad@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "newpassword123"
+                                    },
+                                    "jabatan_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "pangkat_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_atasan": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "instansi_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nip": {
+                                        "type": "string",
+                                        "example": "197901012003121002"
+                                    },
+                                    "nik": {
+                                        "type": "string",
+                                        "example": "3674020101900001"
+                                    },
+                                    "jenis_pegawai": {
+                                        "type": "string",
+                                        "example": "non_pns"
+                                    },
+                                    "no_wa": {
+                                        "type": "string",
+                                        "example": "081234567891"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil diupdate"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Hapus user",
+                "operationId": "d0de81d4859fb0eca3bd5f2396763124",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Tidak ditemukan"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "InstansiRequest": {
+                "required": [
+                    "nama"
+                ],
+                "properties": {
+                    "nama": {
+                        "type": "string",
+                        "example": "Dinas Pendidikan"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Masukkan token tanpa kata Bearer, contoh: 12345abcdef",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            },
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth"
+        },
+        {
+            "name": "Indikator"
+        },
+        {
+            "name": "Instansi"
+        },
+        {
+            "name": "Jabatan"
+        },
+        {
+            "name": "Pangkat"
+        },
+        {
+            "name": "RHK Pejabat"
+        },
+        {
+            "name": "RHK Staff"
+        },
+        {
+            "name": "Uraian Tugas"
+        },
+        {
+            "name": "User"
+        }
+    ]
+}
